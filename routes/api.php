@@ -22,18 +22,22 @@ Route::get('/welcome', function () {
     return 'Welcome to my tasks app';
 });
 
-Route::put('/tasks', function () {
-    return 'update tasks';
+Route::put('/tasks/{id}', function ($id) {
+    return 'update task: '.$id;
 });
 
 Route::post('/tasks', function () {
     return 'create tasks';
 });
 
-Route::delete('/tasks', function () {
-    return 'delete tasks';
+Route::delete('/tasks/{id}', function ($id) {
+    return 'delete task: '. $id;
 });
 
 Route::get('/tasks', function () {
     return 'get tasks';
+});
+
+Route::get('/tasks/{id}', function ($id) {
+    return 'get tasks: '. $id;
 });
