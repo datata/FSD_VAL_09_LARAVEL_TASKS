@@ -14,6 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/welcome', function () {
+    return 'Welcome to my tasks app';
+});
+
+Route::put('/tasks', function () {
+    return 'update tasks';
+});
+
+Route::post('/tasks', function () {
+    return 'create tasks';
+});
+
+Route::delete('/tasks', function () {
+    return 'delete tasks';
+});
+
+Route::get('/tasks', function () {
+    return 'get tasks';
 });
