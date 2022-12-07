@@ -33,9 +33,7 @@ Route::delete('/tasks/{id}', function ($id) {
     return 'delete task: '. $id;
 });
 
-Route::get('/tasks', function () {
-    return 'get tasks';
-});
+Route::get('/tasks', [TaskController::class, 'getTasks'] );
 
 Route::get('/tasks/{id}', function ($id) {
     return 'get tasks: '. $id;
