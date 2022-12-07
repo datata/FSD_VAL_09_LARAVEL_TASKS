@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,9 +18,14 @@ class TaskController extends Controller
     {
         Log::info('Getting All tasks');
         try {
+            // Raw querys
             // $tasks = DB::select('select * from tasks');
 
-            $tasks = DB::table('tasks')->get();
+            // Query Builder
+            // $tasks = DB::table('tasks')->get();
+
+            // Model
+            $tasks = Task::query()->get();
 
             return response([
                 'success' => true,
