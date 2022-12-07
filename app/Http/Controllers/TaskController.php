@@ -41,4 +41,32 @@ class TaskController extends Controller
             ], 500);
         }
     }
+
+    public function getTaskById($id)
+    {
+        Log::info('Getting task by id.');
+        try {
+            $task = Task::query()->find($id);
+
+            if(!$task) {
+                return response([
+                    'success' => true,
+                    'message' => 'No existe la tarea',
+                ], 404);
+            }
+
+            return response([
+                'success' => true,
+                'message' => 'Task retrieved successfully',
+                'data' => $task
+            ], 200);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response([
+                'success' => false,
+                'message' => 'No se han podido recuperar la tarea'
+            ], 500);
+        }
+    }
 }
