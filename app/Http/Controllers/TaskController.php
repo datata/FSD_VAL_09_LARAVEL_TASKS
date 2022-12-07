@@ -6,12 +6,47 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
-    public function createTask()
+    public function createTask(Request $request)
     {
-        return 'create tasks';
+        Log::info('Creating task');
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|max:255',
+                'description' => 'required',
+            ]);
+     
+            if ($validator->fails()) {
+                return response([
+                    'success' => false,
+                    'message' => $validator->messages()
+                ], 400);
+            }
+
+            $name = $request->input('name');
+            $description = $request->input('description');
+
+            $newTask = new Task();
+            $newTask->name = $name;
+            $newTask->description = $description;
+            $newTask->status = false;
+            $newTask->save();
+
+            return response([
+                'success' => true,
+                'message' => 'Task created'
+            ], 200);
+        } catch (\Throwable $th) {
+            Log::error('Error creating task: '.$th->getMessage());
+
+            return response([
+                'success' => false,
+                'message' => 'Error creating task'
+            ], 500);
+        }
     }
 
     public function getTasks()
