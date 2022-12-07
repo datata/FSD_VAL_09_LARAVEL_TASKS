@@ -17,7 +17,7 @@ class TaskController extends Controller
     {
         Log::info('Getting All tasks');
         try {
-            $$tasks = DB::select('select * from tasks');
+            $tasks = DB::select('select * from tasks');
 
             return response([
                 'success' => true,
