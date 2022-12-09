@@ -23,14 +23,8 @@ Route::get('/welcome', function () {
     return 'Welcome to my tasks app';
 });
 
-Route::put('/tasks/{id}', function ($id) {
-    return 'update task: '.$id;
-});
-
+Route::put('/tasks/{id}', [TaskController::class, 'updateTaskById']);
 Route::post('/tasks',  [TaskController::class, 'createTask']);
-
 Route::delete('/tasks/{id}', [TaskController::class, 'deleteTaskById']);
-
 Route::get('/tasks', [TaskController::class, 'getTasks'] );
-
 Route::get('/tasks/{id}', [TaskController::class, 'getTaskById']);

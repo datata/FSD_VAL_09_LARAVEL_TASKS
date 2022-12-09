@@ -134,4 +134,56 @@ class TaskController extends Controller
             ], 500);
         }
     }
+
+    public function updateTaskById(Request $request, $id)
+    {
+        try {
+            $taskId = $id;
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'max:255',
+                'description' => 'string',
+                'status' => 'boolean'
+            ]);
+     
+            if ($validator->fails()) {
+                return response([
+                    'success' => false,
+                    'message' => $validator->messages()
+                ], 400);
+            }
+
+            $task = Task::query()->find($taskId);
+
+            $name = $request->input('name');
+            $description = $request->input('description');
+            $status = $request->input('status');
+
+            if(isset($name)) {
+                $task->name = $request->input('name');
+            }
+
+            if(isset($description)) {
+                $task->description = $request->input('description');
+            }
+
+            if(isset($status)) {
+                $task->status = $request->input('status');
+            }
+
+            $task->save();
+
+            return response([
+                'success' => true,
+                'message' => 'Task updated successfully'
+            ], 200);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response([
+                'success' => false,
+                'message' => 'No se han podido actualizar la tarea'
+            ], 500);
+        }
+    }
 }
