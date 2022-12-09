@@ -104,4 +104,32 @@ class TaskController extends Controller
             ], 500);
         }
     }
+
+    public function deleteTaskById($id)
+    {
+        try {
+            $taskId = $id;
+
+            $task = Task::query()->find($taskId);
+
+            if(!$task) {
+                return response([
+                    'success' => true,
+                    'message' => 'Taks doesnt exists'
+                ], 200);   
+            };
+
+            return response([
+                'success' => true,
+                'message' => 'Task deleted successfully'
+            ], 200);            
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return response([
+                'success' => false,
+                'message' => 'No se han podido eliminar la tarea'
+            ], 500);
+        }
+    }
 }

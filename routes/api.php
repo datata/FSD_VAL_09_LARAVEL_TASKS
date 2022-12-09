@@ -29,9 +29,7 @@ Route::put('/tasks/{id}', function ($id) {
 
 Route::post('/tasks',  [TaskController::class, 'createTask']);
 
-Route::delete('/tasks/{id}', function ($id) {
-    return 'delete task: '. $id;
-});
+Route::delete('/tasks/{id}', [TaskController::class, 'deleteTaskById']);
 
 Route::get('/tasks', [TaskController::class, 'getTasks'] );
 
