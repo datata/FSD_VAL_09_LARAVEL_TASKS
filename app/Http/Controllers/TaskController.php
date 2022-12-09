@@ -119,6 +119,8 @@ class TaskController extends Controller
                 ], 200);   
             };
 
+            $task->delete();
+
             return response([
                 'success' => true,
                 'message' => 'Task deleted successfully'
